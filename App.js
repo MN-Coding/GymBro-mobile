@@ -1,33 +1,55 @@
-import React, { useState } from "react";
-import Home from './screens/home'
-import * as Font from 'expo-font'
+import React, { useState, useCallback, useEffect } from "react";
+import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen'
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import HomeNavigator from './routes/homeNavigator';
+import AboutNavigator from './routes/aboutNavigator'
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-SplashScreen.preventAutoHideAsync();
+//SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
-  const getFonts = async () => {
-    await Font.loadAsync({
-    'nunito-regular': require('./assets/fonts/Nunito-Regular.ttf'),
-    'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf')
-    });
-    setFontsLoaded(true);
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await Font.loadAsync({
+          'nunito-regular': require('./assets/fonts/Nunito-Regular.ttf'),
+          'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf')
+        });
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setFontsLoaded(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
   }
 
-  if (fontsLoaded) {
-    SplashScreen.hideAsync();
-    return(
-      <Home />
-    )
-  }
-  getFonts();
-  
-  return(
-    <Text>Loading...</Text>
+  const Drawer = createDrawerNavigator();
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerTitle: 'Gym Bro'
+      }}>
+      <Drawer.Screen name="Home" component={HomeNavigator}/>
+      <Drawer.Screen name="About" component={AboutNavigator} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   )
 }
-

@@ -1,11 +1,16 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import React from 'react'
 import { globalStyles } from '../styles/global'
+import Card from '../shared/card'
 
-export default function ReviewDetails() {
+export default function ReviewDetails({navigation, route}) {
   return (
-    <View styles={globalStyles.container}>
-      <Text>ReviewDetails Screen</Text>
-    </View>
+    <SafeAreaView styles={globalStyles.container}>
+      <Card>
+        <Text>{route.params.title}</Text>
+        <Text>{route.params.body}</Text>
+        <Text>{route.params.rating}</Text>
+      </Card>
+    </SafeAreaView>
   )
 }
