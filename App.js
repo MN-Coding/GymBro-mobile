@@ -7,12 +7,11 @@ import AboutNavigator from './routes/aboutNavigator'
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
+import Header from './screens/header'
 
 // SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-
-  console.log(faDumbbell);
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
@@ -49,7 +48,7 @@ export default function App() {
       <Drawer.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerTitle: 'Gym Bro'
+        headerTitle: (props) => <Header {...props} />
       }}>
       <Drawer.Screen name="Home" component={HomeNavigator}/>
       <Drawer.Screen name="About" component={AboutNavigator} />

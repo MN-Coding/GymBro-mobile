@@ -26,6 +26,7 @@ export default function Home({navigation}) {
       <SearchBar 
       onChangeText={(text) => handleSearch(text)}
       onClearPress={()=> setReviews(shownExercises)}
+      spinnerVisibility={true}
       style={styles.searchbar}/>
       <FlatList 
       data={reviews}

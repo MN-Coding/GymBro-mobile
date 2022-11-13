@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, SafeAreaView, Image } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, Image, Button } from 'react-native'
 import React from 'react'
 import { globalStyles, images } from '../styles/global'
 import Card from '../shared/card'
@@ -6,8 +6,9 @@ import {Rating} from 'react-native-ratings'
 
 export default function ExerciseDetails({navigation, route}) {
 
-  //const rating = route.params.rating;
-  const rating = 5;
+  // add more functionality to rating?
+  // const rating = 5;
+
   const imgSrc = route.params.gifUrl;
   const title = route.params.name.toUpperCase();
   const bodyPart = route.params.bodyPart.toUpperCase();
@@ -36,6 +37,8 @@ export default function ExerciseDetails({navigation, route}) {
         <Text style={styles.bodyText}>Equipment: </Text>
         <Text style={styles.bodyTextInfo}>{equipment}</Text>
         </View>
+        {/* edit button */}
+        <Button />
         {/* <Rating 
         imageSize={20}
         style={styles.rating}

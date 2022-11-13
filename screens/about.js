@@ -5,7 +5,7 @@ import { globalStyles } from '../styles/global'
 export default function About() {
   return (
     <View styles={globalStyles.container}>
-      <Text>About Screen</Text>
+      <Text>GymBro is an app designed to help</Text>
     </View>
   )
 }
