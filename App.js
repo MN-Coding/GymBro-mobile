@@ -5,10 +5,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import HomeNavigator from './routes/homeNavigator';
 import AboutNavigator from './routes/aboutNavigator'
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 
-//SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+
+  console.log(faDumbbell);
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
 

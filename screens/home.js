@@ -2,24 +2,38 @@ import { View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from
 import React, {useState} from 'react'
 import { globalStyles } from '../styles/global'
 import Card from '../shared/card'
+import { response } from '../response'
+import SearchBar from 'react-native-dynamic-search-bar'
+
+const SHOWN = 10;
 
 export default function Home({navigation}) {
 
-  const [reviews, setReviews] = useState([
-    { title: 'Zelda, Breath of Fresh Air', rating: 5, body: 'lorem ipsum', key: '1' },
-    { title: 'Gotta Catch Them All (again)', rating: 4, body: 'lorem ipsum', key: '2' },
-    { title: 'Not So "Final" Fantasy', rating: 3, body: 'lorem ipsum', key: '3' },
-  ]);  
+  //const shownExercises = response.slice(0, SHOWN);
+  const shownExercises = response;
+
+  const [reviews, setReviews] = useState(shownExercises);  
+
+  const handleSearch = (text) => {
+    let filter = text.toLowerCase();
+    const regex = new RegExp(`${filter}`);
+    const newReviews = shownExercises.filter((item) => regex.test(item.name));
+    setReviews(newReviews);
+  }
 
   return (
     <SafeAreaView style={globalStyles.container}>
+      <SearchBar 
+      onChangeText={(text) => handleSearch(text)}
+      onClearPress={()=> setReviews(shownExercises)}
+      style={styles.searchbar}/>
       <FlatList 
       data={reviews}
       renderItem={({item}) => (
         <TouchableOpacity
-        onPress={() => navigation.navigate('ReviewDetails', item)}>
+        onPress={() => navigation.navigate('ExerciseDetails', item)}>
           <Card>
-            <Text style={globalStyles.titleText}>{item.title}</Text>
+            <Text style={globalStyles.titleText}>{item.name}</Text>
           </Card>
         </TouchableOpacity>
       )}
@@ -27,3 +41,10 @@ export default function Home({navigation}) {
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  searchbar: {
+    marginTop: 10,
+    marginBottom: 10
+  }
+})

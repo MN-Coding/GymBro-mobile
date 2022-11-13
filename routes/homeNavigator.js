@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ReviewDetails from "../screens/reviewDetails";
+import ExerciseDetails from "../screens/exerciseDetails";
 import Home from "../screens/home";
 
 export default function HomeNavigator() {
@@ -11,7 +11,7 @@ export default function HomeNavigator() {
         <Stack.Navigator
         screenOptions={{
         headerStyle: {
-            backgroundColor: 'lightgrey',
+            backgroundColor: 'white',
             height: 60,
         },
         headerTintColor: '#444',
@@ -21,13 +21,13 @@ export default function HomeNavigator() {
         name="Home"
         component={Home}
         options={{
-            headerTitle: 'GameZone'
+            headerTitle: 'Find the Right Exercise'
         }}/>
         <Stack.Screen
-        name="ReviewDetails"
-        component={ReviewDetails}
+        name="ExerciseDetails"
+        component={ExerciseDetails}
         options={{
-            headerTitle: 'Review Details'
+            headerTitle: 'Exercise Details'
         }}/>
         </Stack.Navigator>
     </NavigationContainer>
