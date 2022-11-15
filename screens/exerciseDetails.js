@@ -1,19 +1,32 @@
-import { View, Text, StyleSheet, SafeAreaView, Image, Button } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, Image} from 'react-native'
 import React from 'react'
 import { globalStyles, images } from '../styles/global'
 import Card from '../shared/card'
 import {Rating} from 'react-native-ratings'
+import CustomButton from '../shared/customButton'
+import SQLite from 'react-native-sqlite-storage'
 
 export default function ExerciseDetails({navigation, route}) {
-
-  // add more functionality to rating?
-  // const rating = 5;
 
   const imgSrc = route.params.gifUrl;
   const title = route.params.name.toUpperCase();
   const bodyPart = route.params.bodyPart.toUpperCase();
   const targetBodyPart = route.params.target.toUpperCase();
   const equipment = route.params.equipment.toUpperCase();
+
+  const handleProgressButton = () => {
+    console.log('pressed')
+  }
+
+  // const createTable = () => {
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       "CREATE TABLE IF NOT EXISTS "
+  //       +"Exercises "
+  //       +"()"
+  //     )
+  //   })
+  // }
 
   return (
     <SafeAreaView styles={globalStyles.container}>
@@ -37,15 +50,8 @@ export default function ExerciseDetails({navigation, route}) {
         <Text style={styles.bodyText}>Equipment: </Text>
         <Text style={styles.bodyTextInfo}>{equipment}</Text>
         </View>
-        {/* edit button */}
-        <Button />
-        {/* <Rating 
-        imageSize={20}
-        style={styles.rating}
-        readonly={true}
-        startingValue={rating}
-        /> */}
       </Card>
+      <CustomButton title='See My Progress' onPress={handleProgressButton}/>
     </SafeAreaView>
   )
 }

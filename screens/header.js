@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <View style={styles.header}>
         <FontAwesomeIcon icon={faDumbbell} border size={24} color={'#007AFF'}/>
-        <Text style={styles.text}>Gym Bro</Text>
+        <Text style={styles.text}>GymBro</Text>
     </View>
   )
 }
