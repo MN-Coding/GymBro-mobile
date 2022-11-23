@@ -2,22 +2,15 @@ import React, { useState, useCallback, useEffect} from "react";
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen'
 import { NavigationContainer } from "@react-navigation/native";
-import HomeNavigator from './routes/homeNavigator';
-import AboutNavigator from './routes/aboutNavigator'
+import HomeNavigator from './routes/homeNavigator'
+import FindExercisesNavigator from './routes/findExercisesNavigator';
 import MyExercisesNavigator from './routes/myExercisesNavigator'
+import AwardsNavigator from './routes/awardsNavigator'
+import AboutNavigator from './routes/aboutNavigator'
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Header from './screens/header'
-import * as SQLite from 'expo-sqlite';
-import { response } from './response'
 
 // SplashScreen.preventAutoHideAsync();
-
-const openDatabase = () => {
-  const db = SQLite.openDatabase("exercises.db");
-  return db;
-}
-
-const db = openDatabase();
 
 export default function App() {
 
@@ -40,35 +33,6 @@ export default function App() {
     prepare();
   }, []);
 
-  useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "create table if not exists exercises (bodyPart text, equipment text, gifUrl text, id text primary key, name text, target text, favourite integer);"
-      );
-    });
-  }, []);
-
-  response.forEach((exercise) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "insert into exercises (bodyPart, equipment, gifUrl, id, name, target, favourite) values (?, ?, ?, ?, ?, ?, false)",
-        exercise.bodyPart, exercise.equipment, exercise.gifUrl, exercise.id, exercise.name, exercise.target, false
-      )
-    }, null);
-  })
-
-  // continue here and test select query
-  console.log('hello');
-  db.transaction((tx) => {
-    tx.executeSql(
-      "select * from exercises where name = ankle circles",
-    )
-  },
-  null,
-  (transaction, resultSet) => console.log(resultSet),
-  (err) => console.log(err));
-  console.log('hello2');
-
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -88,7 +52,9 @@ export default function App() {
         headerTitle: (props) => <Header {...props} />
       }}>
       <Drawer.Screen name="Home" component={HomeNavigator}/>
+      <Drawer.Screen name="Find an Exercise" component={FindExercisesNavigator}/>
       <Drawer.Screen name="My Exercises" component={MyExercisesNavigator}/>
+      <Drawer.Screen name="Awards" component={AwardsNavigator}/>
       <Drawer.Screen name="About" component={AboutNavigator} />
       </Drawer.Navigator>
     </NavigationContainer>

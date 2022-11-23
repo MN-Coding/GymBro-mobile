@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet, SafeAreaView, Image} from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import { globalStyles, images } from '../styles/global'
 import Card from '../shared/card'
-import {Rating} from 'react-native-ratings'
 import CustomButton from '../shared/customButton'
-import SQLite from 'react-native-sqlite-storage'
+
 
 export default function ExerciseDetails({navigation, route}) {
+
+  const [favourited, setFavourited] = useState(1);
 
   const imgSrc = route.params.gifUrl;
   const title = route.params.name.toUpperCase();
@@ -15,18 +16,13 @@ export default function ExerciseDetails({navigation, route}) {
   const equipment = route.params.equipment.toUpperCase();
 
   const handleProgressButton = () => {
-    console.log('pressed')
+    console.log('adding progress')
   }
 
-  // const createTable = () => {
-  //   db.transaction((tx) => {
-  //     tx.executeSql(
-  //       "CREATE TABLE IF NOT EXISTS "
-  //       +"Exercises "
-  //       +"()"
-  //     )
-  //   })
-  // }
+  const handleFavouritesButton = () => {
+    console.log('adding to favourites')
+    setFavourited(2);
+  }
 
   return (
     <SafeAreaView styles={globalStyles.container}>
@@ -52,6 +48,7 @@ export default function ExerciseDetails({navigation, route}) {
         </View>
       </Card>
       <CustomButton title='See My Progress' onPress={handleProgressButton}/>
+      <CustomButton title='Add to Favourites ' favourite = {favourited} onPress={handleFavouritesButton}/>
     </SafeAreaView>
   )
 }

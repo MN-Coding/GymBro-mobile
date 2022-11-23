@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { globalStyles } from '../styles/global'
 import Card from '../shared/card'
 import { response } from '../response'

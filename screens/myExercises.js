@@ -1,7 +1,9 @@
 import { View, Text} from 'react-native'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 export default function MyExercises() {
+
+  const [favourites, setFavourites] = useState([]);
 
 
   return (
